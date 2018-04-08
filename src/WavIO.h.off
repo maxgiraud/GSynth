@@ -1,0 +1,44 @@
+#ifndef __WAVIO__
+#define __WAVIO__
+
+#include <iostream>
+#include <fstream>
+#include <cmath>
+#include <vector>
+
+class WavIO {
+
+	private:
+		std::string _fileName;
+		char* _header;
+		char* _data;
+		int _dataSize;		// bytes
+		int _headerSize;	// bytes
+		int _blocSize;		// bytes
+		int _sampleFreq;	// Hertz
+		int _sampleSize;	// bits
+		
+
+	public:
+		WavIO();
+		int Write();
+		int Write(std::string _fileName);
+		int Write(std::string _fileName, int sampleFreq, int sampleSize);
+		void GenHeader();
+		int Sampling(std::vector<int> raw);
+
+		char* GetData() 	{ return _data; }
+		int GetDataSize() 	{ return _dataSize; }
+		int GetSampleFreq() 	{ return _sampleFreq; }
+		int GetSampleSize() 	{ return _sampleSize; }
+
+		void SetData(char* data) 		{ _data = data; }
+		void SetDataSize(int dataSize) 		{ _dataSize = dataSize; }
+		void SetSampleFreq(int sampleFreq) 	{ _sampleFreq = sampleFreq; }
+		void SetSampleSize(int sampleSize) 	{ _sampleSize = sampleSize; }
+
+		void LE4(int value, char* array, int pos);
+		void LE2(int value, char* array, int pos);
+};
+
+#endif
